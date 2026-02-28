@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://r7inbwwewugx"]
+
+[ext_resource type="Texture2D" uid="uid://byyi6yo1blrxt" path="res://assets/gobbledegook-removebg-preview.png" id="2_ghijl"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_44cfe"]
+radius = 4.0
+height = 12.0
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=207522924]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=489510752]
+position = Vector2(-4.7683716e-07, -4.7683716e-07)
+scale = Vector2(0.05311356, 0.044280484)
+texture = ExtResource("2_ghijl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1387266578]
+scale = Vector2(1, 0.8895518)
+shape = SubResource("CapsuleShape2D_44cfe")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=62395733]
+zoom = Vector2(8, 8)
