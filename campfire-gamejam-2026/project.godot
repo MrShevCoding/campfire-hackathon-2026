@@ -11,13 +11,21 @@ config_version=5
 [application]
 
 config/name="campfire-gamejam2026"
-run/main_scene="uid://p6m3tpp7r5dx"
+run/main_scene="uid://dhxjtjokudnnk"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://sprites/icon.svg"
+
+[autoload]
+
+MusicManager="*uid://cis4kh5c1xgoa"
 
 [editor]
 
 version_control/autoload_on_startup=true
+
+[global_group]
+
+player=""
 
 [input]
 
