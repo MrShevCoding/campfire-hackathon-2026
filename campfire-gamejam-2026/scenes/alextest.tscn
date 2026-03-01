@@ -1,17 +1,112 @@
 [gd_scene format=4 uid="uid://p6m3tpp7r5dx"]
 
-[ext_resource type="Texture2D" uid="uid://co7o5wu8x7bmv" path="res://sprites/icon.svg" id="1_errlg"]
-[ext_resource type="Script" uid="uid://8tw1q08cmqbs" path="res://scripts/player_stats.gd" id="1_j5jx5"]
-[ext_resource type="Script" uid="uid://ju3rodlcu8bo" path="res://scripts/kraken_movement.gd" id="2_bl13t"]
-[ext_resource type="Script" uid="uid://b5u2dkth4lxhf" path="res://scripts/kraken_hit.gd" id="3_j5jx5"]
-[ext_resource type="Texture2D" uid="uid://cdgvkxci3kxw4" path="res://assets/world_tileset.png" id="4_74lek"]
+[ext_resource type="Script" uid="uid://8tw1q08cmqbs" path="res://scripts/player_stats.gd" id="1_3v1su"]
+[ext_resource type="Texture2D" uid="uid://bvc0epgvthyn3" path="res://assets/diverspritesheet.png" id="2_8jo4e"]
+[ext_resource type="Texture2D" uid="uid://coukgaps1qwih" path="res://assets/diverjumpsheet.png" id="2_y1dw0"]
+[ext_resource type="Texture2D" uid="uid://cdgvkxci3kxw4" path="res://assets/world_tileset.png" id="3_y1dw0"]
+[ext_resource type="Script" uid="uid://ju3rodlcu8bo" path="res://scripts/kraken_movement.gd" id="4_cxdwy"]
+[ext_resource type="Script" uid="uid://b5u2dkth4lxhf" path="res://scripts/kraken_hit.gd" id="5_nkq7p"]
+[ext_resource type="Texture2D" uid="uid://dveajosh7mal8" path="res://assets/kraken.png" id="6_8jo4e"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_er12v"]
+atlas = ExtResource("2_y1dw0")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1knyk"]
+atlas = ExtResource("2_y1dw0")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ub33m"]
+atlas = ExtResource("2_y1dw0")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lhixt"]
+atlas = ExtResource("2_y1dw0")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_71qgj"]
+atlas = ExtResource("2_y1dw0")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x8a1e"]
+atlas = ExtResource("2_y1dw0")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n7yy6"]
+atlas = ExtResource("2_8jo4e")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ili6"]
+atlas = ExtResource("2_8jo4e")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7vy0u"]
+atlas = ExtResource("2_8jo4e")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lw38p"]
+atlas = ExtResource("2_8jo4e")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_er12v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_er12v")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1knyk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ub33m")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lhixt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_71qgj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x8a1e")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n7yy6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ili6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7vy0u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lw38p")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iyx0m"]
-radius = 20.0
-height = 50.0
+radius = 6.0
+height = 14.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j5jx5"]
-texture = ExtResource("4_74lek")
+texture = ExtResource("3_y1dw0")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8, -8, -8)
 1:0/0 = 0
@@ -147,28 +242,71 @@ texture = ExtResource("4_74lek")
 
 [sub_resource type="TileSet" id="TileSet_lpvoh"]
 physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_j5jx5")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_74lek"]
-size = Vector2(696, 217.78848)
+size = Vector2(1992, 218.55957)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y1dw0"]
+atlas = ExtResource("6_8jo4e")
+region = Rect2(0, 0, 466, 232)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxdwy"]
+atlas = ExtResource("6_8jo4e")
+region = Rect2(466, 0, 466, 232)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nkq7p"]
+atlas = ExtResource("6_8jo4e")
+region = Rect2(932, 0, 466, 232)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3513d"]
+atlas = ExtResource("6_8jo4e")
+region = Rect2(1398, 0, 466, 232)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n7yy6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y1dw0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cxdwy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nkq7p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3513d")
+}],
+"loop": true,
+"name": &"kraken_anim",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j5jx5"]
+size = Vector2(525, 1180)
 
 [node name="Test" type="Node2D" unique_id=594558743]
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=738630856]
-position = Vector2(672, 168)
-script = ExtResource("1_j5jx5")
+position = Vector2(626, 316)
+collision_layer = 2
+collision_mask = 13
+script = ExtResource("1_3v1su")
 
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D" unique_id=1534093228]
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("1_errlg")
+[node name="Player_anim" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=2014237955]
+sprite_frames = SubResource("SpriteFrames_er12v")
+animation = &"walk"
+frame_progress = 0.5566026
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1401795928]
 shape = SubResource("CapsuleShape2D_iyx0m")
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=1765011012]
-zoom = Vector2(0.75, 0.75)
+scale = Vector2(0.86218774, 0.46291307)
+offset = Vector2(0, -0.09)
+zoom = Vector2(2, 2)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="CharacterBody2D" unique_id=648783341]
 
@@ -185,26 +323,35 @@ tile_map_data = PackedByteArray("AAALABEAAAAAAAAAAAAMABEAAAAAAAAAAAANABEAAAAAAAA
 tile_set = SubResource("TileSet_lpvoh")
 
 [node name="Kraken2D" type="CharacterBody2D" parent="." unique_id=109628423]
-script = ExtResource("2_bl13t")
-
-[node name="Kraken_sprite" type="Sprite2D" parent="Kraken2D" unique_id=1667236539]
-position = Vector2(0, 309.5)
-scale = Vector2(1, 5.8359375)
-texture = ExtResource("1_errlg")
+position = Vector2(-223, 0)
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("4_cxdwy")
 
 [node name="Area2D" type="Area2D" parent="Kraken2D" unique_id=515100156]
 position = Vector2(3, -3)
-script = ExtResource("3_j5jx5")
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("5_nkq7p")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Kraken2D/Area2D" unique_id=1122572903]
 physics_interpolation_mode = 1
-position = Vector2(-292, 37)
+position = Vector2(-940, 39.24999)
 scale = Vector2(1, 5.8359375)
 shape = SubResource("RectangleShape2D_74lek")
 one_way_collision_margin = 0.0
 debug_color = Color(3.85046e-06, 0.5951094, 0.72918427, 0.41960785)
 
+[node name="Kraken_anim" type="AnimatedSprite2D" parent="Kraken2D" unique_id=1258565373]
+position = Vector2(-907, 55)
+scale = Vector2(4.111588, 5.206897)
+sprite_frames = SubResource("SpriteFrames_n7yy6")
+animation = &"kraken_anim"
+frame_progress = 0.557796
+speed_scale = 0.83
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Kraken2D" unique_id=1884957225]
 physics_interpolation_mode = 2
-position = Vector2(-1, 0)
+position = Vector2(-221.5, 66)
 shape = SubResource("RectangleShape2D_j5jx5")
+one_way_collision = true

@@ -15,6 +15,10 @@ run/main_scene="uid://p6m3tpp7r5dx"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://sprites/icon.svg"
 
+[editor]
+
+version_control/autoload_on_startup=true
+
 [input]
 
 move_left={
