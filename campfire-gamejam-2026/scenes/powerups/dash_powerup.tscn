@@ -1,0 +1,156 @@
+[gd_scene format=3 uid="uid://budlhglld04ej"]
+
+[ext_resource type="Texture2D" uid="uid://cwe20x2do68xb" path="res://assets/doublejump.png" id="1_dgkii"]
+[ext_resource type="Script" uid="uid://bwrxvehogs0g0" path="res://scripts/dash_pickup.gd" id="1_fv8ga"]
+[ext_resource type="Texture2D" uid="uid://dmcq5k8xebceb" path="res://assets/dash.png" id="2_0xjim"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uld35"]
+radius = 15.297058
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h21bn"]
+atlas = ExtResource("2_0xjim")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0askr"]
+atlas = ExtResource("2_0xjim")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tdygx"]
+atlas = ExtResource("2_0xjim")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fu4go"]
+atlas = ExtResource("2_0xjim")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l8hc5"]
+atlas = ExtResource("2_0xjim")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ar2m"]
+atlas = ExtResource("2_0xjim")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fpoux"]
+atlas = ExtResource("2_0xjim")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5wdc6"]
+atlas = ExtResource("2_0xjim")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a1p08"]
+atlas = ExtResource("2_0xjim")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1u7me"]
+atlas = ExtResource("1_dgkii")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o16sg"]
+atlas = ExtResource("1_dgkii")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wltdb"]
+atlas = ExtResource("1_dgkii")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_djk38"]
+atlas = ExtResource("1_dgkii")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n3vl7"]
+atlas = ExtResource("1_dgkii")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r66cl"]
+atlas = ExtResource("1_dgkii")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8j6q"]
+atlas = ExtResource("1_dgkii")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4as5i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h21bn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0askr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tdygx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fu4go")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l8hc5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ar2m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fpoux")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5wdc6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a1p08")
+}],
+"loop": true,
+"name": &"dash_powerup",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"downslam_animation",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1u7me")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o16sg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wltdb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_djk38")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n3vl7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r66cl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q8j6q")
+}],
+"loop": true,
+"name": &"jump_powerup",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"sprint_powerup",
+"speed": 5.0
+}]
+
+[node name="dash_powerup" type="Area2D" unique_id=983364038]
+script = ExtResource("1_fv8ga")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=195858469]
+scale = Vector2(1.5, 1.5)
+shape = SubResource("CircleShape2D_uld35")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2014805430]
+sprite_frames = SubResource("SpriteFrames_4as5i")
+animation = &"dash_powerup"
+frame_progress = 0.7407313
+speed_scale = 1.5

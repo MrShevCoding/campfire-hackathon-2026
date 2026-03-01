@@ -10,6 +10,10 @@
 [ext_resource type="Script" uid="uid://oixkxhds4ipu" path="res://scripts/level_exit.gd" id="9_cmspm"]
 [ext_resource type="Texture2D" uid="uid://d1s5ou1qtexs0" path="res://assets/New_Piskel-1.png" id="10_0epgs"]
 [ext_resource type="Texture2D" uid="uid://cwm7yd2adsmrn" path="res://assets/caveenter.png" id="10_ikfo1"]
+[ext_resource type="PackedScene" uid="uid://budlhglld04ej" path="res://scenes/powerups/dash_powerup.tscn" id="11_0hilk"]
+[ext_resource type="PackedScene" uid="uid://dfmuu1byoi1tl" path="res://scenes/powerups/doublejump_powerup.tscn" id="12_wr8iv"]
+[ext_resource type="PackedScene" uid="uid://bm86vbdlfjqsd" path="res://scenes/powerups/downslam_powerup.tscn" id="13_e13mp"]
+[ext_resource type="PackedScene" uid="uid://br8ymiriyqede" path="res://scenes/powerups/sprint_powerup.tscn" id="14_vrdqu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_er12v"]
 atlas = ExtResource("2_g2equ")
@@ -329,22 +333,22 @@ size = Vector2(21, 28)
 [node name="Test" type="Node2D" unique_id=594558743]
 
 [node name="Pedstial1" type="Sprite2D" parent="." unique_id=1780541473]
-position = Vector2(179.00002, 29)
+position = Vector2(294.94577, 28.724781)
 scale = Vector2(0.99322146, 0.98279876)
 texture = ExtResource("1_nlqja")
 
 [node name="Pedstial2" type="Sprite2D" parent="." unique_id=786040915]
-position = Vector2(269, 26)
+position = Vector2(384.94574, 25.724781)
 scale = Vector2(0.99322146, 0.98279876)
 texture = ExtResource("1_nlqja")
 
 [node name="Pedstial3" type="Sprite2D" parent="." unique_id=6000252]
-position = Vector2(351, 26)
+position = Vector2(466.94574, 25.724781)
 scale = Vector2(0.99322146, 0.98279876)
 texture = ExtResource("1_nlqja")
 
 [node name="Pedstial4" type="Sprite2D" parent="." unique_id=1822272322]
-position = Vector2(448, 26)
+position = Vector2(563.94574, 25.724781)
 scale = Vector2(0.99322146, 0.98279876)
 texture = ExtResource("1_nlqja")
 
@@ -403,8 +407,8 @@ texture = ExtResource("10_ikfo1")
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1164325229]
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=10559204]
-position = Vector2(-193, -183)
-scale = Vector2(10.0546875, 4.5625)
+position = Vector2(-153, -167.00002)
+scale = Vector2(8.578125, 3.9062507)
 texture = ExtResource("10_0epgs")
 centered = false
 
@@ -415,3 +419,19 @@ offset_right = 213.0
 offset_bottom = -74.0
 text = "Welcome to \"Deeper Surface\" "
 placeholder_text = "awdawdawd"
+
+[node name="doublejump_powerup" parent="." unique_id=983364038 instance=ExtResource("11_0hilk")]
+position = Vector2(294, -15)
+scale = Vector2(0.806, 1)
+
+[node name="doublejump_powerup2" parent="." unique_id=1211597328 instance=ExtResource("12_wr8iv")]
+position = Vector2(385, -18)
+scale = Vector2(1, 0.8)
+
+[node name="doublejump_powerup3" parent="." unique_id=1456531412 instance=ExtResource("13_e13mp")]
+position = Vector2(464, -12)
+
+[node name="sprint_powerup" parent="." unique_id=146713355 instance=ExtResource("14_vrdqu")]
+position = Vector2(567, -17)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1677332768]
