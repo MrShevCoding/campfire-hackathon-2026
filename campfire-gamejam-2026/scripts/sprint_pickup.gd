@@ -1,4 +1,6 @@
 extends Area2D
+# Sprint Powerup Pickup
+# Unlocks the ability to hold Shift and run faster. zoom
 
 func _ready():
 	$AnimatedSprite2D.play("sprint_powerup")

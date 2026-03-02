@@ -1,5 +1,7 @@
 extends Area2D
-
+# Level Exit Trigger
+# When the player touches this, we make them onto  next scene
+# according to our predefined sequence.
 func _ready():
 	body_entered.connect(_on_body_entered)
 
@@ -12,7 +14,7 @@ func _on_body_entered(body):
 func go_to_next_scene():
 	var current = get_tree().current_scene.scene_file_path
 	print("Current scene: ", current)
-	# Defer the actual scene change
+	# Defer the change to avoid "physics callback" errors
 	call_deferred("_change_scene", current)
 
 func _change_scene(current: String):

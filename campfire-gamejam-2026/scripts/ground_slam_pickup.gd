@@ -1,4 +1,7 @@
 extends Area2D
+# Ground Slam Powerup Pickup
+# Unlocks the ability to slam straight down while in the air.
+# Dash but downards
 
 func _ready():
 	$AnimatedSprite2D.play("downslam_powerup")

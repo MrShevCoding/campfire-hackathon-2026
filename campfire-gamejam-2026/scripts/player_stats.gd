@@ -1,6 +1,9 @@
 extends CharacterBody2D
+# 1 MAIN PLAYER SCRIPT, not best to have everything in 1 scipt, but worked for the jam
+# Handles movement, health, knockback, power-ups, camera shake,
+# and death. God script
 
-# ===================== EXISTING MOVEMENT & HEALTH =====================
+# Movement and Health
 @export var speed := 240
 @export var jump_velocity := -215
 @export var gravity := 300
@@ -24,7 +27,7 @@ var shake_strength := 0.0
 var shake_duration := 0.0
 var original_shake_duration := 0.0
 
-# ===================== NEW: POWER‑UP ABILITY FLAGS =====================
+# Powerup stats 
 var can_double_jump := false
 var jump_count := 0
 
@@ -47,31 +50,29 @@ var can_ground_slam := false
 var is_ground_slamming := false
 @export var slam_speed := 1400.0
 
-# ===================== EXISTING _ready() =====================
+# _ready() – runs once when the scene loads
 func _ready():
-	# Load persistent HP
+	# Load health from GameManager (saves across all levels/scenes)
 	hp = GameManager.player_hp
 	max_hp = GameManager.player_max_hp
 	
-	# Apply +20 heal when entering a level that is NOT the tutorial
-	# (tutorial is the very first scene)
+	# If this level isn't the tutorial, give a +20 heal (safe room effect)
 	var current_scene_path = get_tree().current_scene.scene_file_path
 	if current_scene_path != "res://scenes/tutorial.tscn":
 		hp = min(hp + 20, max_hp)
-		# Save the healed HP back to GameManager immediately
-		GameManager.player_hp = hp
+		GameManager.player_hp = hp   # save the healed value
 	
-	# Reset abilities (they are already false by default)
-	# No need to load abilities from GameManager – they reset each level
-	
+	# Check that the health label is there
 	if health_label == null:
 		push_error("HPLabel NOT FOUND — CHECK NODE PATH")
 	else:
 		update_health_ui()
 
-# ===================== MODIFIED _physics_process =====================
+
+# _physics_process(delta) – runs every physics frame (60fps)
+# This is where all the action happens for the script.
 func _physics_process(delta):
-	# --- DEATH HANDLING (unchanged) ---
+	# Death	
 	if is_dead:
 		velocity.y += gravity * delta * 2
 		move_and_slide()
@@ -81,11 +82,11 @@ func _physics_process(delta):
 			anim.stop()
 		return
 	
-	# --- DAMAGE COOLDOWN (unchanged) ---
+	# Dmg cooldwon
 	if damage_cooldown > 0.0:
 		damage_cooldown -= delta
 	
-	# --- KNOCKBACK PRIORITY (unchanged) ---
+	# Knocback (takes priority)
 	if knockback_timer > 0.0:
 		knockback_timer -= delta
 		move_and_slide()
@@ -95,10 +96,10 @@ func _physics_process(delta):
 			anim.stop()
 		return
 	
-	# --- NEW: DASH COOLDOWN TIMER ---
+	# Dash cooldown
 	dash_cooldown_timer -= delta
 
-	# --- NEW: DASH INPUT & STATE ---
+	# Dash input double arrow key
 	if can_dash and not dash_used:
 		var current_time = Time.get_ticks_msec() / 1000.0
 
@@ -119,7 +120,7 @@ func _physics_process(delta):
 		move_and_slide()
 		return
 
-	# --- NEW: GROUND SLAM INPUT & STATE ---
+	# Ground slam
 	if can_ground_slam and not is_on_floor():
 		if Input.is_action_just_pressed("ui_down"):
 			is_ground_slamming = true
@@ -127,21 +128,19 @@ func _physics_process(delta):
 	if is_ground_slamming:
 		velocity.x = 0
 		velocity.y = slam_speed
-
 		if is_on_floor():
 			is_ground_slamming = false
-
 		move_and_slide()
 		return
 
-	# --- NORMAL MOVEMENT (with sprint) ---
+	# Normal movements, for this jam we did arrow keys but
+	# You can easily make it to wasd and others
 	var input_dir := 0
 	if Input.is_action_pressed("ui_right"):
 		input_dir += 1
 	if Input.is_action_pressed("ui_left"):
 		input_dir -= 1
 
-	# Sprint multiplier (only if moving horizontally and sprint key held)
 	var current_speed = speed
 	if can_sprint and Input.is_action_pressed("sprint") and input_dir != 0:
 		current_speed *= sprint_multiplier
@@ -153,11 +152,10 @@ func _physics_process(delta):
 		velocity.y += gravity * delta
 	else:
 		velocity.y = 0
-		# Reset jump and dash when landing
 		jump_count = 0
 		dash_used = false
 
-	# --- JUMP / DOUBLE JUMP ---
+	# Jump and Double Jump
 	if Input.is_action_just_pressed("ui_up"):
 		if is_on_floor():
 			velocity.y = jump_velocity
@@ -168,10 +166,10 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-	# --- ANIMATION (unchanged) ---
+	# Update animation based on state
 	update_animation()
 
-	# --- CAMERA SHAKE (unchanged) ---
+	# Camera shake effect
 	if shake_duration > 0:
 		shake_duration -= delta
 		var current_strength = shake_strength * (shake_duration / original_shake_duration)
@@ -182,7 +180,10 @@ func _physics_process(delta):
 	else:
 		camera.offset = Vector2.ZERO
 
-# ===================== NEW: DASH FUNCTION =====================
+
+# Helper: start_dash(direction)
+# Called when double‑tap is detected, which helps sets up dash state.
+
 func start_dash(direction: int):
 	is_dashing = true
 	dash_timer = dash_time
@@ -191,45 +192,52 @@ func start_dash(direction: int):
 	velocity.y = 0
 	velocity.x = direction * dash_speed
 
-# ===================== EXISTING FUNCTIONS (unchanged) =====================
+
+# Damage and Death func
+
+# Called by Kraken's hitbox when it touches us
 func take_kraken_hit(dir: Vector2):
 	if damage_cooldown > 0.0:
 		return
 	start_shake(12.0, 0.25)
 	kraken_hits += 1
-	var damage := 10 + (kraken_hits - 1) * 5
+	var damage := 10 + (kraken_hits - 1) * 5   # scales: 10, 15, 20...etc
 	damage_cooldown = DAMAGE_COOLDOWN_TIME
 	take_damage(damage, dir)
-	
+
+# General damage function
 func take_damage(amount: int, dir: Vector2):
 	hp = max(hp - amount, 0)
-	GameManager.player_hp = hp   # <-- SAVE to GameManager
+	GameManager.player_hp = hp   # save to GameManager
 	
 	velocity.x = dir.normalized().x * 2000
 	velocity.y = -460
-	
 	knockback_timer = KNOCKBACK_TIME
 	update_health_ui()
 	if hp <= 0:
 		die()
 
+# Start camera shake
 func start_shake(strength: float = 10.0, duration: float = 0.3):
 	shake_strength = strength
 	shake_duration = duration
 	original_shake_duration = duration  
 
+# Update the health label on screen
 func update_health_ui():
 	if health_label:
 		health_label.text = str(hp) + "/" + str(max_hp)
 
+# Player death
 func die():
 	is_dead = true
 	velocity = Vector2.ZERO
 	print("PLAYER DIED")
-	# For now, restart the level immediately (you'll replace with death screen later)
+	# For now we just restart the level (temporary until we add a death screen)
 	GameManager.reset_game()
 	get_tree().reload_current_scene()
 	
+# Animation state machine
 func update_animation():
 	if not is_on_floor():
 		if velocity.y < 0:
@@ -244,7 +252,8 @@ func update_animation():
 	if abs(velocity.x) > 10:
 		anim.flip_h = velocity.x < 0
 
-# ===================== NEW: POWER‑UP UNLOCK FUNCTIONS =====================
+
+# power-up unlock func (called by pickup scripts)
 func enable_double_jump():
 	can_double_jump = true
 

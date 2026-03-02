@@ -1,8 +1,13 @@
 extends Node
+# MusicManager (Autoload also like the GameManager)
+# Handles switching background music based on the current scene.
+# It's an autoload so music continues between levels.
+
 
 var music_player: AudioStreamPlayer
 var current_track_path: String = ""
 
+# Map scene file paths to their corresponding music files
 const SCENE_MUSIC_MAP = {
 	"res://scenes/tutorial.tscn": "res://assets/music/merchants_and_sea_salt.wav",
 	"res://scenes/level1.tscn": "res://assets/music/pirate.mp3",
@@ -15,13 +20,13 @@ const SCENE_MUSIC_MAP = {
 func _ready():
 	music_player = AudioStreamPlayer.new()
 	add_child(music_player)
-	# No need to play immediately – _process will handle it
+	# _process will handle the first check
 
 func _process(_delta):
 	check_scene_and_play_music()
 
 func check_scene_and_play_music():
-	# ✅ Prevent error when scene is not yet loaded
+	# Prevent errors if the scene isn't fully loaded yet
 	if not get_tree() or not get_tree().current_scene:
 		return
 	

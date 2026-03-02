@@ -1,4 +1,5 @@
 extends Area2D
+# Double Jump Powerup Pickup this lets the player jump once in mid-air.
 
 func _ready():
 	$AnimatedSprite2D.play("jump_powerup")

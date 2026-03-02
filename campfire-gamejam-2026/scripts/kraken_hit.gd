@@ -1,17 +1,21 @@
 extends Area2D
 
-var damage_interval := 0.5  # seconds between damage ticks
+# Kraken's hitbox –>this Area2D is a child of the Kraken.
+# When the player stays inside, they keep taking damage.
+
+var damage_interval := 0.5          # time/seconds between damage ticks
 var time_since_last_damage := 0.0
-var players_in_area := []   # track players inside
+var players_in_area := []            # list of players currently inside
 
 func _ready():
+	# Connect both enter and exit signals
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 
 func _on_body_entered(body):
 	if body.has_method("take_kraken_hit") and body not in players_in_area:
 		players_in_area.append(body)
-		# Optionally apply immediate damage on entry
+		# Optional: apply damage immediately when they first touch
 		apply_damage(body)
 
 func _on_body_exited(body):
